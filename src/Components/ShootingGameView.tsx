@@ -2,18 +2,20 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, ViewProps} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export interface ShootingGameProps {
-  prompt: string; // The prompt to display to the user
+export interface GameInitDef {
   objective: string; // The objective text
   endsAt: Date; // Date when the game ends
   numAnswers: number; // Number of answers to show
   correctIndex: number; // Index of the correct answer
+}
+
+export interface ShootingGameProps {
   getTarget: (index: number) => React.FC<{clicked: boolean}>; // helper to generate the shooting target
   onFinish: (solved: boolean) => void; // callback when the game ends (either timed out or solved)
   viewProps?: ViewProps; // to override View props from parent
 }
 
-const ShootingGameView: React.FC<ShootingGameProps> = ({
+const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
   objective,
   endsAt,
   numAnswers,
@@ -50,7 +52,7 @@ const ShootingGameView: React.FC<ShootingGameProps> = ({
   }, []);
 
   return (
-    <View {...viewProps}>
+    <View key={'shooter'} {...viewProps}>
       <Text>Time Left: {timeLeft}</Text>
       <Text>{objective}</Text>
 

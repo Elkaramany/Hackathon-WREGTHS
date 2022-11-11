@@ -1,27 +1,56 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 
-import { Container, HeaderArrow, RegText } from '@Components'
+import {
+  Container,
+  HeaderArrow,
+  RegText,
+  ShootingGameView,
+  ShootingGameInitDef,
+} from '@Components';
 
-interface Props {
+interface Props {}
 
+interface DataDef {
+  data: string[];
 }
 
-const Shooter: React.FC<Props> = ({ }) => {
-    return (
-        <Container>
-            <HeaderArrow
-                headerText='Shooter'
-            />
+const textTarget = (data: string[], index: number) => {
+  return () => {
+    return <Text>{data[index]}</Text>;
+  };
+};
 
-        </Container>
-    )
-}
+const Shooter: React.FC<Props> = ({}) => {
+  const response: DataDef & ShootingGameInitDef = {
+    objective: 'Shoot the cowboy (c)!',
+    endsAt: new Date(Date.now() + 10000),
+    numAnswers: 5,
+    correctIndex: 2,
+    data: ['a', 'b', 'c', 'd', 'e'],
+  };
+  const getTarget = (index: number) => textTarget(response.data, index);
+  const onFinish = (solved: boolean) => {
+    console.log('Game finished, solved: ', solved);
+  };
+
+  return (
+    <Container>
+      <HeaderArrow headerText="Shooter" />
+
+      <ShootingGameView
+        {...response}
+        getTarget={getTarget}
+        onFinish={onFinish}
+      />
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-})
+  container: {
+    flex: 1,
+  },
+});
 
 export default Shooter;
