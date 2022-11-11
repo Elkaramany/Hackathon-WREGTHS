@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ViewStyle, TextStyle, StyleSheet } from 'react-native';
 import { verticalScale } from 'react-native-size-matters';
 import { Colors } from '../Config'
+import RegText from './RegText';
 
 interface Props {
     headerStyle?: ViewStyle;
@@ -12,9 +13,10 @@ interface Props {
 const Header: React.FC<Props> = ({ headerStyle, textStyle, headerText }) => {
     return (
         <View style={[styles.headerContainer, headerStyle]}>
-            <Text style={[styles.headerTextStyle, textStyle]}>
-                {headerText}
-            </Text>
+            <RegText str={headerText}
+                biggest
+                customTextStyle={styles.headerTextStyle}
+            />
         </View>
     )
 }
@@ -24,8 +26,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     }, headerTextStyle: {
         color: Colors.primary,
-        fontSize: verticalScale(50),
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
 })
 

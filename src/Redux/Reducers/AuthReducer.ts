@@ -8,14 +8,21 @@ interface Payload {
   value: number | string | object
 }
 
-interface Props {
+interface GOOGLEUSER {
+  familyName: string
+  givenName: string
   email: string
-  password: string
+  id: string
+  name: string
+  photo: string
+}
+
+interface Props {
+  user: GOOGLEUSER | null
 }
 
 const INITIAL_STATE: Props = {
-  email: '',
-  password: '',
+  user: null
 }
 
 export default (state = INITIAL_STATE, action: Action) => {
