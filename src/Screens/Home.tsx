@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { GlobalStyles, ToptalLogo, GoogleLogo, GoogleLogin } from '@Config';
 
-import { Container, RegText, Button } from '@Components';
+import { Container, RegText, Button, Spinner } from '@Components';
+import { Credential } from '@Actions';
 
 interface Props {
     navigation: StackNavigationProp<any, any>,
@@ -13,12 +14,28 @@ interface Props {
 
 const Home: React.FC<Props> = ({ navigation }) => {
     const dispatch = useDispatch()
-    const { email, password } = useSelector((state: any) => state.AuthReducer)
+    const [loaded, setLoaded] = React.useState(false)
+    const { user } = useSelector((state: any) => state.AuthReducer)
+
+    React.useEffect(() => {
+        //to give the app the time it needs to figure out if the user logged in before
+        setTimeout(() => {
+            setLoaded(true)
+        }, 700)
+    }, [])
+
+
+    React.useEffect(() => {
+        if (user) loggedIn()
+    }, [user])
 
     const TryGoogle = async () => {
-        let res = await GoogleLogin()
-        console.log(res)
+        let user = await GoogleLogin()
+        //user logged in, otherwise it would be null
+        if (user) Credential(dispatch, { prop: "user", value: user })
     }
+
+    const loggedIn = () => navigation.navigate("Index")
 
     return (
         <Container>
@@ -32,11 +49,15 @@ const Home: React.FC<Props> = ({ navigation }) => {
 
 
             <View style={styles.container}>
-                <Button
-                    onPress={() => TryGoogle()}
-                    text='Login with Google'
-                    Icon={GoogleLogo}
-                />
+                {loaded ?
+                    <Button
+                        onPress={() => TryGoogle()}
+                        text='Login with Google'
+                        Icon={GoogleLogo}
+                    />
+                    :
+                    <Spinner />
+                }
             </View>
 
         </Container>

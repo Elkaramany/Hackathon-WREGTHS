@@ -16,8 +16,8 @@ const RegText: React.FC<Props> = ({ str, customTextStyle, big, bigger, biggest }
 
     const getFontSize = () => {
         if (big === true) return scale(14)
-        if (bigger === true) return scale(16)
-        if (biggest === true) return scale(18)
+        if (bigger === true) return scale(18)
+        if (biggest === true) return scale(24)
 
         return scale(12)
     }

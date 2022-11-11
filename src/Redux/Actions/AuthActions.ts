@@ -1,13 +1,12 @@
-
 interface Cred {
     prop: string
-    value: number | object | string
+    value: number | object | string | null | boolean
 }
 
 
-export const Credential = (cred: Cred) => {
-    return {
+export const Credential = (dispatch: any, cred: Cred) => {
+    dispatch({
         type: 'Credential_In',
-        payload: { prop: cred.prop, value: cred.value }
-    }
+        payload: { prop: cred.prop, value: cred.value },
+    });
 }
