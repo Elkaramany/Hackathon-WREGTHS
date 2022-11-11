@@ -1,0 +1,13 @@
+{
+    "plugins": [
+      ["module:react-native-dotenv"],
+      ["module-resolver", {
+        "alias": {
+          "@Config": "./src/Config/index",
+          "@Components": "./src/Components",
+          "@Actions": "./src/Redux/Actions",
+          "@Screens": "./src/Screens"
+        }
+      }],
+    ]
+  }
