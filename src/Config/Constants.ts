@@ -37,6 +37,10 @@ const GlobalStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
+    },rowWrap:{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
     },
     textInputContainer: {
         marginBottom: verticalScale(30),
