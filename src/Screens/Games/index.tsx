@@ -22,7 +22,7 @@ let games = [
     },
     {
         id: 2,
-        name: "Hamster",
+        name: "Hit the Hamster",
         navigator: "Hamster"
     },
 ]
