@@ -2,8 +2,9 @@ import React from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { scale, verticalScale } from 'react-native-size-matters'
 
-import { Container, Header, RegText } from '@Components'
+import { Button, Container, Header, RegText } from '@Components'
 import { Colors, GlobalStyles } from '@Config'
+import { useDispatch } from 'react-redux'
 
 interface Props {
     navigation: any
@@ -34,6 +35,7 @@ interface GAME {
 }
 
 const Index: React.FC<Props> = ({ navigation }) => {
+    const dispatch = useDispatch()
 
     const renderItem = (game: GAME) => {
         return (
@@ -56,6 +58,14 @@ const Index: React.FC<Props> = ({ navigation }) => {
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={({ item }) => renderItem(item)}
             />
+
+            <View style={[GlobalStyles.bottomAbsoluted, { width: '100%' }]}>
+                <Button
+                    containerStyle={{ alignSelf: 'center', width: '50%', backgroundColor: 'tomato' }}
+                    text='Sign out'
+                    onPress={() => dispatch({type: 'RESET'})}
+                />
+            </View>
 
         </Container>
     )

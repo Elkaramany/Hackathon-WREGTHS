@@ -14,20 +14,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ navigation }) => {
     const dispatch = useDispatch()
-    const [loaded, setLoaded] = React.useState(false)
-    const { user } = useSelector((state: any) => state.AuthReducer)
 
-    React.useEffect(() => {
-        //to give the app the time it needs to figure out if the user logged in before
-        setTimeout(() => {
-            setLoaded(true)
-        }, 700)
-    }, [])
-
-
-    React.useEffect(() => {
-        if (user) loggedIn()
-    }, [user])
 
     const TryGoogle = async () => {
         let user = await GoogleLogin()
@@ -49,15 +36,11 @@ const Home: React.FC<Props> = ({ navigation }) => {
 
 
             <View style={styles.container}>
-                {loaded ?
-                    <Button
-                        onPress={() => TryGoogle()}
-                        text='Login with Google'
-                        Icon={GoogleLogo}
-                    />
-                    :
-                    <Spinner />
-                }
+                <Button
+                    onPress={() => TryGoogle()}
+                    text='Login with Google'
+                    Icon={GoogleLogo}
+                />
             </View>
 
         </Container>

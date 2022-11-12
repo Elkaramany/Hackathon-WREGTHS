@@ -29,6 +29,8 @@ export default (state = INITIAL_STATE, action: Action) => {
   switch (action.type) {
     case 'Credential_In':
       return { ...state, [action.payload.prop]: action.payload.value }
+    case 'RESET':
+      return { ...state, ...INITIAL_STATE }
     default:
       return state
   }
