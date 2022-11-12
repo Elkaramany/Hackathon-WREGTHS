@@ -93,7 +93,7 @@ const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing
                         text: "I wanna try another game",
                         onPress: () => navigation.goBack(),
                     },
-                    { text: "I'm gonna win this time", onPress: () => restartGame(), style: "cancel" }
+                    { text: "Let me try again", onPress: () => restartGame(), style: "cancel" }
                 ]
             );
         }
