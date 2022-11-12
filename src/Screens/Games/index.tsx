@@ -12,7 +12,7 @@ interface Props {
 let games = [
     {
         id: 0,
-        name: "Don't crash the snake",
+        name: "Don't crash the plane",
         navigator: "Snake"
     },
     {

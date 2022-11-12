@@ -1,21 +1,25 @@
 import React from 'react'
 import { View, StyleSheet, Alert } from 'react-native'
 import useState from 'react-usestateref'
-import { scale } from 'react-native-size-matters'
+import { scale, verticalScale } from 'react-native-size-matters'
 
-import { Colors } from '@Config'
+import { Colors, GlobalStyles } from '@Config'
 
 import { moveSnake, SNAKE } from './utils'
+import { RegText } from '@Components'
 
 interface Props {
     currentDirection: any
+    setCurrentDirection: (val: string) => void
     playing: boolean
+    setPlaying: (val: boolean) => void
     navigation: any
+    setHighscore: (val: number) => void
 }
 
 const SnakePixel: React.FC<{ pos: SNAKE, dim: number }> = ({ pos, dim }) => <View style={[styles.snake, { left: pos.left, top: pos.top, width: dim, height: dim }]} />
 const GAME_PACE = 35
-const Board: React.FC<Props> = ({ currentDirection, playing, navigation }) => {
+const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing, setPlaying, navigation, setHighscore }) => {
     const [limit, setLimit] = React.useState({ width: 100, height: 100 })
     const [pixel, setPixel] = React.useState<number>(10)
     const [snake, setSnake, snakeRef] = useState<SNAKE[]>([])
@@ -26,7 +30,6 @@ const Board: React.FC<Props> = ({ currentDirection, playing, navigation }) => {
         setLimit({ width, height })
         let move = width / 26
         setPixel(move)
-        setInitialSnake(move)
     }
 
     const setInitialSnake = (move: number) => {
@@ -39,26 +42,36 @@ const Board: React.FC<Props> = ({ currentDirection, playing, navigation }) => {
         setSnake(newSnake)
     }
 
-    React.useEffect(() => {
-        startGame()
-    }, [playing])
 
-    const startGame = () => {
-        let interval: any;
+    React.useEffect(() => {
+        setCurrentDirection("right")
         setInitialSnake(pixel)
-        if (playing) {
-            interval = setInterval(() => {
-                moveTheSnake(interval)
-            }, GAME_PACE);
-        } else clearInterval(interval);
+        let interval: any;
+        if (playing) startGame(interval)
+        else clearInterval(interval)
 
         return () => clearInterval(interval);
+    }, [playing])
+
+    const startGame = (interval: any) => {
+        interval = setInterval(() => {
+            moveTheSnake(interval)
+        }, GAME_PACE);
+    }
+
+    const restartGame = () => {
+        setPlaying(false)
+        setTimeout(() => {
+            setPlaying(true)
+        }, 3000)
     }
 
     const moveTheSnake = (interval: any) => {
         let newSnake = moveSnake(currentDirection.current, snakeRef.current, pixel, limit)
+
         if (newSnake) setSnake(newSnake)
         else {
+            setHighscore(snakeRef.current.length)
             clearInterval(interval)
             Alert.alert(
                 "Game Over, but don't worry. Toptal still loves you!",
@@ -67,9 +80,8 @@ const Board: React.FC<Props> = ({ currentDirection, playing, navigation }) => {
                     {
                         text: "I wanna try another game",
                         onPress: () => navigation.goBack(),
-                        style: "cancel"
                     },
-                    { text: "I'm gonna win this time", onPress: () => startGame() }
+                    { text: "I'm gonna win this time", onPress: () => restartGame(), style: "cancel" }
                 ]
             );
         }
@@ -77,11 +89,13 @@ const Board: React.FC<Props> = ({ currentDirection, playing, navigation }) => {
 
     return (
         <View onLayout={onLayout} style={styles.container}>
-            {snake.map((pos, index) => {
-                return (
-                    index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} />
-                )
-            })}
+            {playing ?
+                snake.map((pos, index) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} />)
+                :
+                <View style={[GlobalStyles.centeredContainer, { marginVertical: verticalScale(10) }]}>
+                    <RegText str='Any time now..., you ready? we have a really fast plane' />
+                </View>
+            }
         </View>
     )
 }

@@ -1,27 +1,22 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { scale, verticalScale } from 'react-native-size-matters'
 
-import { Container, HeaderArrow, } from '@Components'
 import { Colors, DownControl, GlobalStyles, LeftControl, RightControl, UpControl } from '@Config'
-
-
-interface Props {
-    onMove: (val: string) => void
-}
 
 interface ControlProps {
     Icon: any
     direction: string
     onMove: (val: string) => void
+    currentDirection: string
 }
 const CONTROL_DIMENSION = 50
 
-const Control: React.FC<ControlProps> = ({ Icon, direction, onMove }) => {
+const Control: React.FC<ControlProps> = ({ Icon, direction, onMove, currentDirection }) => {
 
     return (
         <TouchableOpacity
-            style={styles.container}
+            style={[styles.container,{backgroundColor: direction === currentDirection ? 'tomato' : 'transparent'}]}
             onPress={() => onMove(direction)}
         >
             <Icon
@@ -34,23 +29,28 @@ const Control: React.FC<ControlProps> = ({ Icon, direction, onMove }) => {
 
 }
 
-const Controls: React.FC<Props> = ({ onMove }) => {
+interface Props {
+    onMove: (val: string) => void
+    currentDirection: any
+}
+
+const Controls: React.FC<Props> = ({ onMove, currentDirection }) => {
     return (
         <>
             <Control
-                Icon={UpControl} direction='up' onMove={onMove}
+                Icon={UpControl} direction='up' onMove={onMove} currentDirection={currentDirection.current}
             />
             <View style={[GlobalStyles.rowBetween, { marginVertical: verticalScale(10), width: '80%' }]}>
                 <Control
-                    Icon={LeftControl} direction='left' onMove={onMove}
+                    Icon={LeftControl} direction='left' onMove={onMove} currentDirection={currentDirection.current}
                 />
 
                 <Control
-                    Icon={RightControl} direction='right' onMove={onMove}
+                    Icon={RightControl} direction='right' onMove={onMove} currentDirection={currentDirection.current}
                 />
             </View>
             <Control
-                Icon={DownControl} direction='down' onMove={onMove}
+                Icon={DownControl} direction='down' onMove={onMove} currentDirection={currentDirection.current}
             />
         </>
     )
