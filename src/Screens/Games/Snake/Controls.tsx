@@ -16,7 +16,7 @@ const Control: React.FC<ControlProps> = ({ Icon, direction, onMove, currentDirec
 
     return (
         <TouchableOpacity
-            style={[styles.container,{backgroundColor: direction === currentDirection ? 'tomato' : 'transparent'}]}
+            style={[styles.container,{backgroundColor: direction === currentDirection ? Colors.secondary : 'transparent'}]}
             onPress={() => onMove(direction)}
         >
             <Icon

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import useState from 'react-usestateref'
 import { verticalScale } from 'react-native-size-matters'
 
@@ -15,7 +15,6 @@ interface Props {
 
 const Snake: React.FC<Props> = ({ navigation }) => {
     const [currentDirection, setCurrentDirection, currentDirectionRef] = useState('right')
-    const [highscore, setHighscore] = React.useState(0)
     const [playing, setPlaying] = React.useState(false)
 
     const onMove = (direction: string) => {
@@ -30,19 +29,13 @@ const Snake: React.FC<Props> = ({ navigation }) => {
         return () => clearTimeout(time)
     }, [])
 
-    const updateScore = (score: number) => {
-        if (score > highscore) setHighscore(score)
-    }
-
 
     return (
         <Container>
             <HeaderArrow
                 headerText="Don't crash the plane"
             />
-            <View style={{ marginVertical: verticalScale(20) }}>
-                <RegText str={`Your high score: ${highscore}`} />
-            </View>
+
             <View style={{ flex: 1 }}>
                 <Board
                     currentDirection={currentDirectionRef}
@@ -50,7 +43,6 @@ const Snake: React.FC<Props> = ({ navigation }) => {
                     playing={playing}
                     setPlaying={setPlaying}
                     navigation={navigation}
-                    setHighscore={updateScore}
                 />
             </View>
 
@@ -60,11 +52,5 @@ const Snake: React.FC<Props> = ({ navigation }) => {
         </Container>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-})
 
 export default Snake;

@@ -14,14 +14,13 @@ interface Props {
     playing: boolean
     setPlaying: (val: boolean) => void
     navigation: any
-    setHighscore: (val: number) => void
 }
 
 const SnakePixel: React.FC<{ pos: SNAKE, dim: number, index: number, items: SNAKE[] }> = ({ pos, dim, index, items }) => {
     if (index === items.length - 1) {
         return (
             <View style={{ left: pos.left, top: pos.top, position: 'absolute' }}>
-                <Airplane width={dim} height={dim} fill={Colors.secondary}/>
+                <Airplane width={dim} height={dim} fill={Colors.secondary} />
             </View>
         )
     } else {
@@ -31,7 +30,7 @@ const SnakePixel: React.FC<{ pos: SNAKE, dim: number, index: number, items: SNAK
 
 const GAME_PACE = 75
 
-const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing, setPlaying, navigation, setHighscore }) => {
+const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing, setPlaying, navigation }) => {
     const [limit, setLimit] = React.useState({ width: 100, height: 100 })
     const [pixel, setPixel] = React.useState<number>(10)
     const [snake, setSnake, snakeRef] = useState<SNAKE[]>([])
@@ -71,38 +70,29 @@ const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing
         }, GAME_PACE);
     }
 
-    const restartGame = () => {
-        setPlaying(false)
-        setTimeout(() => {
-            setPlaying(true)
-        }, 3000)
-    }
-
     const moveTheSnake = (interval: any) => {
         let newSnake = moveSnake(currentDirection.current, snakeRef.current, pixel, limit)
 
         if (newSnake) setSnake(newSnake)
         else {
-            setHighscore(snakeRef.current.length)
             clearInterval(interval)
             Alert.alert(
                 "Game Over, but don't worry. Toptal still loves you!",
-                "Wanna try again?",
-                [
-                    {
-                        text: "I wanna try another game",
-                        onPress: () => navigation.goBack(),
-                    },
-                    { text: "Let me try again", onPress: () => restartGame(), style: "cancel" }
-                ]
             );
+            navigation.goBack()
         }
     }
 
     return (
-        <View onLayout={onLayout} style={styles.container}>
+        <View onLayout={onLayout} style={{ flex: 1 }}>
             {playing ?
-                snake.map((pos, index, items) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} index={index} items={items} />)
+                <View style={{flex: 1}}>
+                    <RegText str={`Current score: ${snake.length}`} />
+                    <View style={styles.container}>
+                        {snake.map((pos, index, items) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} index={index} items={items} />)}
+                    </View>
+                </View>
+
                 :
                 <View style={[GlobalStyles.centeredContainer, { marginVertical: verticalScale(10) }]}>
                     <RegText str='Any time now..., you ready? we have a really fast plane' />
