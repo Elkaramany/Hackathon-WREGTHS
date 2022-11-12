@@ -1,19 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, ViewProps} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 
-export interface ShootingGameProps {
-  prompt: string; // The prompt to display to the user
+export interface GameInitDef {
   objective: string; // The objective text
   endsAt: Date; // Date when the game ends
   numAnswers: number; // Number of answers to show
   correctIndex: number; // Index of the correct answer
+}
+
+export interface ShootingGameProps {
   getTarget: (index: number) => React.FC<{clicked: boolean}>; // helper to generate the shooting target
   onFinish: (solved: boolean) => void; // callback when the game ends (either timed out or solved)
   viewProps?: ViewProps; // to override View props from parent
 }
 
-const ShootingGameView: React.FC<ShootingGameProps> = ({
+const NUM_COLUMNS = 4;
+
+const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
   objective,
   endsAt,
   numAnswers,
@@ -50,18 +54,29 @@ const ShootingGameView: React.FC<ShootingGameProps> = ({
   }, []);
 
   return (
-    <View {...viewProps}>
-      <Text>Time Left: {timeLeft}</Text>
+    <View
+      key={'shooter'}
+      style={[{flex: NUM_COLUMNS, alignItems: 'center'}]}
+      {...viewProps}>
+      <Text>Time Left: {Math.trunc(timeLeft / 1000)} seconds</Text>
       <Text>{objective}</Text>
 
-      {Array.from(Array(numAnswers).keys()).map(idx => {
-        const Target = getTarget(idx);
-        return (
-          <TouchableOpacity onPress={() => onClickButton(idx)}>
-            <Target key={idx} clicked={clicked[idx]} />
-          </TouchableOpacity>
-        );
-      })}
+      <View style={{flex: NUM_COLUMNS}}>
+        <FlatList
+          numColumns={NUM_COLUMNS}
+          data={Array.from(Array(numAnswers).keys())}
+          renderItem={({item}) => {
+            const Target = getTarget(item);
+            return (
+              <TouchableOpacity
+                style={{minWidth: 80}}
+                onPress={() => onClickButton(item)}>
+                <Target clicked={clicked[item]} />
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
     </View>
   );
 };
