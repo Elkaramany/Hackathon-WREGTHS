@@ -10,10 +10,10 @@ import { canMoveInDirection } from './utils'
 
 
 interface Props {
-
+    navigation: any
 }
 
-const Snake: React.FC<Props> = ({ }) => {
+const Snake: React.FC<Props> = ({ navigation }) => {
     const [currentDirection, setCurrentDirection, currentDirectionRef] = useState('right')
     const [playing, setPlaying] = React.useState(false)
 
@@ -31,10 +31,10 @@ const Snake: React.FC<Props> = ({ }) => {
     return (
         <Container>
             <HeaderArrow
-                headerText='Snake'
+                headerText="Don't crash the flight"
             />
             <View style={{ flex: 1 }}>
-                <Board currentDirection={currentDirectionRef} playing={playing} />
+                <Board currentDirection={currentDirectionRef} playing={playing} navigation={navigation} />
             </View>
 
             <View style={{ alignItems: 'center', marginVertical: verticalScale(5) }}>
