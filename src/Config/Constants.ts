@@ -11,6 +11,7 @@ const Colors = {
     primary: "#204ECF",
     secondary: "#03CC83",
     tertiary: "#262D3D",
+    gray: "#808080"
 }
 
 const GlobalStyles = StyleSheet.create({
@@ -37,7 +38,7 @@ const GlobalStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
-    },rowWrap:{
+    }, rowWrap: {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',

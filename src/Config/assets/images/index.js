@@ -6,6 +6,10 @@ import LeftControl from './leftControl.svg'
 import UpControl from './upControl.svg'
 import DownControl from './downControl.svg'
 import Airplane from './airplane.svg'
+import GamesIcon from './gamesIcon.svg'
+import SettingsIcon from './settingsIcon.svg'
+import LeaderboardIcon from './leaderboardIcon.svg'
+import FindIcon from './findIcon.svg'
 
 const Hamster1 = require('./hamster1.jpeg')
 const Hamster2 = require('./hamster2.png')
@@ -22,5 +26,9 @@ export {
     Airplane,
     Hamster1,
     Hamster2,
-    Hamster3
+    Hamster3,
+    GamesIcon,
+    SettingsIcon,
+    LeaderboardIcon,
+    FindIcon,
 }

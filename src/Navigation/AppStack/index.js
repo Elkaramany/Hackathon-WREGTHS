@@ -1,25 +1,95 @@
 import React from "react";
 
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+    createBottomTabNavigator,
+} from "@react-navigation/bottom-tabs";
 
-import Index from "@Screens/Games";
-import Shooter from "@Screens/Games/Shooter";
-import Snake from "@Screens/Games/Snake";
-import Hamster from "@Screens/Games/Hamster";
+import { Colors, GamesIcon, LeaderboardIcon, FindIcon, SettingsIcon } from "@Config";
 
-const Stack = createStackNavigator();
+import Games from './GameStack'
+import Leaderboard from "@Screens/Leaderboard";
+import Connect from "@Screens/Connect";
+import Settings from "@Screens/Settings";
 
-const MainStackNavigator = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}
-      initialRouteName={'Index'}
-    >
-      <Stack.Screen name="Index" component={Index} />
-      <Stack.Screen name="Shooter" component={Shooter} />
-      <Stack.Screen name="Snake" component={Snake} />
-      <Stack.Screen name="Hamster" component={Hamster} />
-    </Stack.Navigator>
-  );
+const ICON_WIDTH = 30
+const ICON_HEIGHT = 30
+
+const BottomTab = createBottomTabNavigator();
+
+export default () => {
+
+    return (
+        <BottomTab.Navigator
+            initialRouteName={'Games'}
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+            }}
+        >
+            <BottomTab.Screen
+                name={"Games"}
+                component={Games}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <GamesIcon
+                                width={ICON_WIDTH}
+                                height={ICON_HEIGHT}
+                                fill={focused ? Colors.primary : Colors.gray}
+                            />
+                        );
+                    },
+                }}
+            />
+
+            <BottomTab.Screen
+                name={"Leaderboard"}
+                component={Leaderboard}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <LeaderboardIcon
+                                width={ICON_WIDTH}
+                                height={ICON_HEIGHT}
+                                fill={focused ? Colors.primary : Colors.gray}
+                            />
+                        );
+                    },
+                }}
+            />
+
+            <BottomTab.Screen
+                name={"Connect"}
+                component={Connect}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <FindIcon
+                                width={ICON_WIDTH}
+                                height={ICON_HEIGHT}
+                                fill={focused ? Colors.primary : Colors.gray}
+                            />
+                        );
+                    },
+                }}
+            />
+
+            <BottomTab.Screen
+                name={"Settings"}
+                component={Settings}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <SettingsIcon
+                                width={ICON_WIDTH}
+                                height={ICON_HEIGHT}
+                                fill={focused ? Colors.primary : Colors.gray}
+                            />
+                        );
+                    },
+                }}
+            />
+
+        </BottomTab.Navigator>
+    );
 };
-
-export default MainStackNavigator;

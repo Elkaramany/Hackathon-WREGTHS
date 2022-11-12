@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { scale, verticalScale } from 'react-native-size-matters'
 
-import { Button, Container, Header, RegText } from '@Components'
+import { Container, Header, RegText } from '@Components'
 import { Colors, GlobalStyles } from '@Config'
 import { useDispatch } from 'react-redux'
 
@@ -58,14 +58,6 @@ const Index: React.FC<Props> = ({ navigation }) => {
                 keyExtractor={(item) => `${item.id}`}
                 renderItem={({ item }) => renderItem(item)}
             />
-
-            <View style={[GlobalStyles.bottomAbsoluted, { width: '100%' }]}>
-                <Button
-                    containerStyle={{ alignSelf: 'center', width: '50%', backgroundColor: 'tomato' }}
-                    text='Sign out'
-                    onPress={() => dispatch({type: 'RESET'})}
-                />
-            </View>
 
         </Container>
     )
