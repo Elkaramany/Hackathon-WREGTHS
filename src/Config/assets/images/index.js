@@ -7,6 +7,10 @@ import UpControl from './upControl.svg'
 import DownControl from './downControl.svg'
 import Airplane from './airplane.svg'
 
+const Hamster1 = require('./hamster1.jpeg')
+const Hamster2 = require('./hamster2.png')
+const Hamster3 = require('./hamster3.png')
+
 export {
     ToptalLogo,
     GoogleLogo,
@@ -16,4 +20,7 @@ export {
     UpControl,
     DownControl,
     Airplane,
+    Hamster1,
+    Hamster2,
+    Hamster3
 }
