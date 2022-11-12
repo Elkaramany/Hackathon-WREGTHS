@@ -15,9 +15,21 @@ interface DataDef {
   data: string[];
 }
 
-const textTarget = (data: string[], index: number) => {
-  return () => {
-    return <Text>{data[index]}</Text>;
+const textTarget = (
+  data: string[],
+  index: number,
+): React.FC<{clicked: boolean}> => {
+  return ({clicked}) => {
+    return (
+      <Text
+        style={{
+          fontSize: 60,
+          textAlign: 'center',
+          ...(clicked && {backgroundColor: 'red'}),
+        }}>
+        {data[index]}
+      </Text>
+    );
   };
 };
 
