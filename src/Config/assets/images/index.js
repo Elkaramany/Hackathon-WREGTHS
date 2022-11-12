@@ -5,6 +5,7 @@ import RightControl from './rightControl.svg'
 import LeftControl from './leftControl.svg'
 import UpControl from './upControl.svg'
 import DownControl from './downControl.svg'
+import Airplane from './airplane.svg'
 
 export {
     ToptalLogo,
@@ -13,5 +14,6 @@ export {
     RightControl,
     LeftControl,
     UpControl,
-    DownControl
+    DownControl,
+    Airplane,
 }

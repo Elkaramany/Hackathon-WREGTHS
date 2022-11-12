@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert } from 'react-native'
 import useState from 'react-usestateref'
 import { scale, verticalScale } from 'react-native-size-matters'
 
-import { Colors, GlobalStyles } from '@Config'
+import { Colors, GlobalStyles, Airplane, DownControl } from '@Config'
 
 import { moveSnake, SNAKE } from './utils'
 import { RegText } from '@Components'
@@ -17,8 +17,20 @@ interface Props {
     setHighscore: (val: number) => void
 }
 
-const SnakePixel: React.FC<{ pos: SNAKE, dim: number }> = ({ pos, dim }) => <View style={[styles.snake, { left: pos.left, top: pos.top, width: dim, height: dim }]} />
-const GAME_PACE = 35
+const SnakePixel: React.FC<{ pos: SNAKE, dim: number, index: number, items: SNAKE[] }> = ({ pos, dim, index, items }) => {
+    if (index === items.length - 1) {
+        return (
+            <View style={{ left: pos.left, top: pos.top, position: 'absolute' }}>
+                <Airplane width={dim} height={dim} fill={Colors.secondary}/>
+            </View>
+        )
+    } else {
+        return <View style={[styles.snake, { left: pos.left, top: pos.top, width: dim, height: dim }]} />
+    }
+}
+
+const GAME_PACE = 75
+
 const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing, setPlaying, navigation, setHighscore }) => {
     const [limit, setLimit] = React.useState({ width: 100, height: 100 })
     const [pixel, setPixel] = React.useState<number>(10)
@@ -90,7 +102,7 @@ const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing
     return (
         <View onLayout={onLayout} style={styles.container}>
             {playing ?
-                snake.map((pos, index) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} />)
+                snake.map((pos, index, items) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} index={index} items={items} />)
                 :
                 <View style={[GlobalStyles.centeredContainer, { marginVertical: verticalScale(10) }]}>
                     <RegText str='Any time now..., you ready? we have a really fast plane' />
