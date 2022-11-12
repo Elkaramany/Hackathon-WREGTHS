@@ -6,7 +6,6 @@ import Spinner from './Spinner';
 import RegText from './RegText';
 import RegImage from './RegImage';
 import Button from './Button';
-import ShootingGameView from './ShootingGameView';
 
 export {
   Container,
@@ -17,7 +16,4 @@ export {
   RegText,
   RegImage,
   Button,
-  ShootingGameView,
 };
-
-export type {GameInitDef as ShootingGameInitDef} from './ShootingGameView';
