@@ -6,6 +6,8 @@ import Index from "@Screens/Games";
 import Shooter from "@Screens/Games/Shooter";
 import Snake from "@Screens/Games/Snake";
 import Hamster from "@Screens/Games/Hamster";
+import DonkeyKong from "@Screens/Games/DonkeyKong";
+import FlappyBird from "@Screens/Games/FlappyBird";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +20,8 @@ const MainStackNavigator = () => {
       <Stack.Screen name="Shooter" component={Shooter} />
       <Stack.Screen name="Snake" component={Snake} />
       <Stack.Screen name="Hamster" component={Hamster} />
+      <Stack.Screen name="DonkeyKong" component={DonkeyKong} />
+      <Stack.Screen name="FlappyBird" component={FlappyBird} />
     </Stack.Navigator>
   );
 };

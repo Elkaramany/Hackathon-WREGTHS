@@ -6,7 +6,7 @@ import { Container, Header, RegText } from '@Components'
 import { Colors, GlobalStyles } from '@Config'
 
 const Leaderboard: React.FC<{}> = ({ }) => {
-    const { hamsterHighscore, snakeHighscore, shooterHighscore } = useSelector((state: any) => state.AuthReducer)
+    const { hamsterHighscore, snakeHighscore, shooterHighscore, flappyBirdHighscore } = useSelector((state: any) => state.AuthReducer)
 
     return (
         <Container>
@@ -31,6 +31,11 @@ const Leaderboard: React.FC<{}> = ({ }) => {
                 customTextStyle={{ color: Colors.primary }}
                 biggest
                 str={`Shooter: ${shooterHighscore}`}
+            />
+            <RegText
+                customTextStyle={{ color: Colors.primary }}
+                biggest
+                str={`Flappy Box: ${flappyBirdHighscore}`}
             />
 
             <View style={GlobalStyles.bottomContainer}>

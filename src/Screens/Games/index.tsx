@@ -24,6 +24,14 @@ let games = [
         id: 2,
         name: "Hit the Hamster",
         navigator: "Hamster"
+    }, {
+        id: 3,
+        name: "Donkey Kong",
+        navigator: "DonkeyKong"
+    }, {
+        id: 4,
+        name: "Flappy Box",
+        navigator: "FlappyBird"
     },
 ]
 

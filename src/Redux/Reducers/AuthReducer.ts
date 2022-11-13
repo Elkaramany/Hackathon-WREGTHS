@@ -22,6 +22,7 @@ export interface AuthProps {
   snakeHighscore: number
   hamsterHighscore: number
   shooterHighscore: number
+  flappyBirdHighscore: number
 }
 
 const INITIAL_STATE: AuthProps = {
@@ -29,6 +30,7 @@ const INITIAL_STATE: AuthProps = {
   snakeHighscore: 0,
   hamsterHighscore: 0,
   shooterHighscore: 0,
+  flappyBirdHighscore: 0,
 }
 
 export default (state = INITIAL_STATE, action: Action) => {
