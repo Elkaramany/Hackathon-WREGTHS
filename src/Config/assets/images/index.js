@@ -14,6 +14,7 @@ import FindIcon from './findIcon.svg'
 const Hamster1 = require('./hamster1.jpeg')
 const Hamster2 = require('./hamster2.png')
 const Hamster3 = require('./hamster3.png')
+const Dummy_User = require('./dummy_user.png')
 
 export {
     ToptalLogo,
@@ -27,6 +28,7 @@ export {
     Hamster1,
     Hamster2,
     Hamster3,
+    Dummy_User,
     GamesIcon,
     SettingsIcon,
     LeaderboardIcon,

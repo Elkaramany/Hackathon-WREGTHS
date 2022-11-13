@@ -1,27 +1,15 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
 
-import { Container, RegText } from '@Components'
-import { GlobalStyles } from '@Config'
- 
-interface Props{
- 
-}
- 
-const Leaderboard: React.FC<Props> = ({}) =>{
-    return(
+import { Container, Header, RegText } from '@Components'
+
+const Leaderboard: React.FC<{}> = ({ }) => {
+    return (
         <Container>
-           <View style={styles.container}>
-                <RegText biggest str='Leaderboards coming soon...' />
-           </View>
+            <Header headerText="Leaderboards to see how your rank up among the top 3% of talent" />
+
+            <RegText str='Coming soon...' />
         </Container>
     )
 }
- 
-const styles = StyleSheet.create({
-    container:{
-        ...GlobalStyles.centeredContainer
-    },
-})
- 
+
 export default Leaderboard;

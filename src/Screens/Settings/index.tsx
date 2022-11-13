@@ -14,7 +14,13 @@ const Index: React.FC<{}> = () => {
             <View style={{ flex: 1, justifyContent: 'center' }}>
                 <RegText bigger str={`Email: ${user.email}`} />
                 <RegText bigger str={`Name: ${user.name}`} />
-                {user.email.includes("@toptal.com") && <RegText customTextStyle={{ color: Colors.primary }} bigger str={`Toptal Freelancer`} />}
+                {user.email.includes("@toptal.com") &&
+                    <RegText
+                        customTextStyle={{ color: Colors.primary }}
+                        bigger
+                        str={`Special features coming soon to Toptal talent like yourself...`}
+                    />
+                }
             </View>
 
             <View style={[GlobalStyles.bottomContainer, { flex: 1, width: '50%', alignSelf: 'center' }]}>

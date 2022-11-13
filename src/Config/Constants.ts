@@ -42,6 +42,14 @@ const GlobalStyles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+    }, columnAround: {
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    }, columnWrap: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
     },
     textInputContainer: {
         marginBottom: verticalScale(30),
@@ -91,4 +99,41 @@ const textInputTheme = {
     }
 }
 
-export { Colors, textInputTheme, GlobalStyles, IOS, ANDROID, WIDTH, HEIGHT };
+const Emojis = [
+    { name: 'grinning face', unicode: '1f600' },
+    { name: 'face with tears of joy', unicode: '1f602' },
+    { name: 'smiling face with halo', unicode: '1f607' },
+    { name: 'thinking face', unicode: '1f914' },
+    { name: 'partying face', unicode: '1f973' },
+    { name: 'nerd face', unicode: '1f913' },
+    { name: 'alien', unicode: '1f47d' },
+    { name: 'robot', unicode: '1f916' },
+    { name: 'smiling cat face with heart-eyes', unicode: '1f63b' },
+    { name: 'kiss mark', unicode: '1f48b' },
+    { name: 'sweat droplets', unicode: '1f4a6' },
+    { name: 'brain', unicode: '1f9e0' },
+    { name: 'fire', unicode: '1f525' },
+    { name: 'sparkles', unicode: '2728' },
+    { name: 'star', unicode: '2b50' },
+    { name: 'sun', unicode: '2600' },
+    { name: 'moon', unicode: '1f319' },
+    { name: 'cloud', unicode: '2601' },
+    { name: 'snowflake', unicode: '2744' },
+    { name: 'snowman', unicode: '26c4' },
+    { name: 'rainbow', unicode: '1f308' },
+    { name: 'umbrella', unicode: '2602' },
+].map(e => ({
+    name: e.name,
+    unicode: String.fromCodePoint(parseInt(e.unicode, 16)),
+}));
+
+export {
+    Colors,
+    textInputTheme,
+    GlobalStyles,
+    IOS,
+    ANDROID,
+    WIDTH,
+    HEIGHT,
+    Emojis,
+};

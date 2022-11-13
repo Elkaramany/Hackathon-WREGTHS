@@ -1,27 +1,26 @@
-import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import React from 'react';
 
-import { Container, RegText } from '@Components'
-import { GlobalStyles } from '@Config'
- 
-interface Props{
- 
+import { Button, Container, Header } from '@Components';
+import { Contact } from './ContactCell';
+import ContactsView from './ContactsView';
+
+export interface ChatProps {
+
 }
- 
-const Leaderboard: React.FC<Props> = ({}) =>{
-    return(
+
+const Index: React.FC<ChatProps> = ({ }) => {
+    const [selections, setSelections] = React.useState<Contact[]>([]);
+
+    return (
         <Container>
-           <View style={styles.container}>
-                <RegText biggest str='Connect with fellow toptalers coming soon...' />
-           </View>
+            <Header headerText="Chat and connect with your fellow Toptalers" />
+            <ContactsView onContactsSelected={setSelections} />
+            <Button
+                text="Start Conversation"
+                onPress={() => console.log(selections)}
+            />
         </Container>
-    )
-}
- 
-const styles = StyleSheet.create({
-    container:{
-        ...GlobalStyles.centeredContainer
-    },
-})
- 
-export default Leaderboard;
+    );
+};
+
+export default Index;

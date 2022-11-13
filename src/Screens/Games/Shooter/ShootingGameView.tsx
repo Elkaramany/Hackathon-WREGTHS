@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, ViewProps} from 'react-native';
+import {StyleSheet, Text, View, ViewProps} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
+import {Colors, GlobalStyles} from '@Config';
+import {verticalScale} from 'react-native-size-matters';
 
 export interface GameInitDef {
   objective: string; // The objective text
@@ -54,31 +56,36 @@ const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
   }, []);
 
   return (
-    <View
-      key={'shooter'}
-      style={[{flex: NUM_COLUMNS, alignItems: 'center'}]}
-      {...viewProps}>
+    <View key={'shooter'} style={styles.container} {...viewProps}>
       <Text>Time Left: {Math.trunc(timeLeft / 1000)} seconds</Text>
       <Text>{objective}</Text>
 
-      <View style={{flex: NUM_COLUMNS}}>
-        <FlatList
-          numColumns={NUM_COLUMNS}
-          data={Array.from(Array(numAnswers).keys())}
-          renderItem={({item}) => {
-            const Target = getTarget(item);
-            return (
-              <TouchableOpacity
-                style={{minWidth: 80}}
-                onPress={() => onClickButton(item)}>
-                <Target clicked={clicked[item]} />
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+      <FlatList
+        numColumns={NUM_COLUMNS}
+        data={Array.from(Array(numAnswers).keys())}
+        renderItem={({item}) => {
+          const Target = getTarget(item);
+          return (
+            <TouchableOpacity
+              style={{minWidth: 80}}
+              onPress={() => onClickButton(item)}>
+              <Target clicked={clicked[item]} />
+            </TouchableOpacity>
+          );
+        }}
+      />
     </View>
   );
 };
 
 export default ShootingGameView;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: NUM_COLUMNS,
+    ...GlobalStyles.columnAround,
+    backgroundColor: Colors.backGround,
+    ...GlobalStyles.centeredContainer,
+    marginTop: verticalScale(10),
+  },
+});

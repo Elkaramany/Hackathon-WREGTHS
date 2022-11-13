@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { GlobalStyles, ToptalLogo, GoogleLogo, GoogleLogin } from '@Config';
 
-import { Container, RegText, Button, Spinner } from '@Components';
+import { Container, RegText, Button } from '@Components';
 import { Credential } from '@Actions';
 
 interface Props {
