@@ -10,6 +10,7 @@ import GamesIcon from './gamesIcon.svg'
 import SettingsIcon from './settingsIcon.svg'
 import LeaderboardIcon from './leaderboardIcon.svg'
 import FindIcon from './findIcon.svg'
+import LogoSvg from './logoSvg.svg'
 
 const Hamster1 = require('./hamster1.jpeg')
 const Hamster2 = require('./hamster2.png')
@@ -33,4 +34,5 @@ export {
     SettingsIcon,
     LeaderboardIcon,
     FindIcon,
+    LogoSvg,
 }
