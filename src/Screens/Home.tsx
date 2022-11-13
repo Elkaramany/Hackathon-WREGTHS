@@ -34,7 +34,7 @@ const Home: React.FC<Props> = ({ navigation }) => {
             />
             <RegText
                 biggest
-                str='In Collaboration with:'
+                str='Presenting:'
                 customTextStyle={[styles.textStyle, { color: 'tomato' }]}
             />
             <View style={[{ flex: 4 }, GlobalStyles.centeredContainer]}>
