@@ -67,7 +67,7 @@ const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
           const Target = getTarget(item);
           return (
             <TouchableOpacity
-              style={{ minWidth: 80 }}
+              style={{ minWidth: 50 }}
               onPress={() => onClickButton(item)}>
               <Target clicked={clicked[item]} />
             </TouchableOpacity>

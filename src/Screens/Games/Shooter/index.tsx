@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Alert } from 'react-native';
+import { Text, Alert, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Container, HeaderArrow } from '@Components';
@@ -54,11 +54,14 @@ const Shooter: React.FC<Props> = ({ }) => {
     const dispatch = useDispatch()
     const { shooterHighscore } = useSelector((state: any) => state.AuthReducer)
     const response: DataDef & ShootingGameInitDef = dummy_response();
+
     const getTarget = (index: number) => textTarget(response.data, index);
+
     const onFinish = (solved: boolean, time: number) => {
+        time = time / 1000
         if (time > shooterHighscore) Credential(dispatch, { prop: "shooterHighscore", value: time })
         let titleMsg = solved ? "You won" : "Game Over"
-        let msg = solved ? `You had an extra ${(time / 1000).toFixed(1)} seconds left` : "Don't worry, Toptal is here for you"
+        let msg = solved ? `You had an extra ${time.toFixed(1)} seconds left` : "Don't worry, Toptal is here for you"
         Alert.alert(
             titleMsg,
             msg,
@@ -72,11 +75,13 @@ const Shooter: React.FC<Props> = ({ }) => {
         <Container>
             <HeaderArrow headerText="Shooter" />
 
-            <ShootingGameView
-                {...response}
-                getTarget={getTarget}
-                onFinish={onFinish}
-            />
+            <View style={{ flex: 1 }}>
+                <ShootingGameView
+                    {...response}
+                    getTarget={getTarget}
+                    onFinish={onFinish}
+                />
+            </View>
         </Container>
     );
 };
