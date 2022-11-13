@@ -27,7 +27,7 @@ let games = [
     }, {
         id: 3,
         name: "Donkey Kong",
-        navigator: "DonkeyKong"
+        navigator: "Disclaimer"
     }, {
         id: 4,
         name: "Flappy Box",
