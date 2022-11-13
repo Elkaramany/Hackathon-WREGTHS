@@ -17,12 +17,18 @@ interface GOOGLEUSER {
   photo: string
 }
 
-interface Props {
+export interface AuthProps {
   user: GOOGLEUSER | null
+  snakeHighscore: number
+  hamsterHighscore: number
+  shooterHighscore: number
 }
 
-const INITIAL_STATE: Props = {
-  user: null
+const INITIAL_STATE: AuthProps = {
+  user: null,
+  snakeHighscore: 0,
+  hamsterHighscore: 0,
+  shooterHighscore: 0,
 }
 
 export default (state = INITIAL_STATE, action: Action) => {

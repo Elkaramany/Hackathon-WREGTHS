@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { GlobalStyles, ToptalLogo, GoogleLogo, GoogleLogin } from '@Config';
@@ -22,8 +22,6 @@ const Home: React.FC<Props> = ({ navigation }) => {
         if (user) Credential(dispatch, { prop: "user", value: user })
     }
 
-    const loggedIn = () => navigation.navigate("Index")
-
     return (
         <Container>
             <RegText
@@ -35,7 +33,7 @@ const Home: React.FC<Props> = ({ navigation }) => {
             </View>
 
 
-            <View style={styles.container}>
+            <View style={{ flex: 4 }}>
                 <Button
                     onPress={() => TryGoogle()}
                     text='Login with Google'
@@ -46,11 +44,5 @@ const Home: React.FC<Props> = ({ navigation }) => {
         </Container>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 4,
-    }
-})
 
 export default Home

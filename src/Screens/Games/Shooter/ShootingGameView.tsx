@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ViewProps} from 'react-native';
-import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-import {Colors, GlobalStyles} from '@Config';
-import {verticalScale} from 'react-native-size-matters';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, ViewProps } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { Colors, GlobalStyles } from '@Config';
+import { verticalScale } from 'react-native-size-matters';
 
 export interface GameInitDef {
   objective: string; // The objective text
@@ -12,8 +12,8 @@ export interface GameInitDef {
 }
 
 export interface ShootingGameProps {
-  getTarget: (index: number) => React.FC<{clicked: boolean}>; // helper to generate the shooting target
-  onFinish: (solved: boolean) => void; // callback when the game ends (either timed out or solved)
+  getTarget: (index: number) => React.FC<{ clicked: boolean }>; // helper to generate the shooting target
+  onFinish: (solved: boolean, time: number) => void; // callback when the game ends (either timed out or solved)
   viewProps?: ViewProps; // to override View props from parent
 }
 
@@ -39,7 +39,7 @@ const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
     });
 
     if (index === correctIndex) {
-      onFinish(true);
+      onFinish(true, timeLeft);
     }
   }
 
@@ -48,7 +48,7 @@ const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
       const newTimeLeft = Math.max(0, endsAt.getTime() - Date.now());
       setTimeLeft(newTimeLeft);
       if (newTimeLeft <= 0) {
-        onFinish(false);
+        onFinish(false, timeLeft);
         clearInterval(interval);
       }
     }, 500);
@@ -63,11 +63,11 @@ const ShootingGameView: React.FC<GameInitDef & ShootingGameProps> = ({
       <FlatList
         numColumns={NUM_COLUMNS}
         data={Array.from(Array(numAnswers).keys())}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           const Target = getTarget(item);
           return (
             <TouchableOpacity
-              style={{minWidth: 80}}
+              style={{ minWidth: 80 }}
               onPress={() => onClickButton(item)}>
               <Target clicked={clicked[item]} />
             </TouchableOpacity>

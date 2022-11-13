@@ -2,11 +2,13 @@ import React from 'react'
 import { View, StyleSheet, Alert } from 'react-native'
 import useState from 'react-usestateref'
 import { scale, verticalScale } from 'react-native-size-matters'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { Colors, GlobalStyles, Airplane, DownControl } from '@Config'
 
 import { moveSnake, SNAKE } from './utils'
 import { RegText } from '@Components'
+import { Credential } from '@Actions'
 
 interface Props {
     currentDirection: any
@@ -34,6 +36,8 @@ const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing
     const [limit, setLimit] = React.useState({ width: 100, height: 100 })
     const [pixel, setPixel] = React.useState<number>(10)
     const [snake, setSnake, snakeRef] = useState<SNAKE[]>([])
+    const dispatch = useDispatch()
+    const { snakeHighscore } = useSelector((state: any) => state.AuthReducer)
 
     const onLayout = (event: any) => {
         //Get how big the snake pixel would be
@@ -55,6 +59,7 @@ const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing
 
 
     React.useEffect(() => {
+        //Initial settings
         setCurrentDirection("right")
         setInitialSnake(pixel)
         let interval: any;
@@ -75,24 +80,24 @@ const Board: React.FC<Props> = ({ currentDirection, setCurrentDirection, playing
 
         if (newSnake) setSnake(newSnake)
         else {
+            if (snakeRef.current.length > snakeHighscore) Credential(dispatch, { prop: "snakeHighscore", value: snakeRef.current.length })
             clearInterval(interval)
             Alert.alert(
-                "Game Over, but don't worry. Toptal still loves you!",
+                `Game Over, you scored ${snakeRef.current.length}`,
+                "Don't worry, Toptal still loves you",
+                [
+                    { text: "Alright, I Love Toptal too!", onPress: () => navigation.goBack() }
+                ]
             );
-            navigation.goBack()
         }
     }
 
     return (
         <View onLayout={onLayout} style={{ flex: 1 }}>
             {playing ?
-                <View style={{flex: 1}}>
-                    <RegText str={`Current score: ${snake.length}`} />
-                    <View style={styles.container}>
-                        {snake.map((pos, index, items) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} index={index} items={items} />)}
-                    </View>
+                <View style={styles.container}>
+                    {snake.map((pos, index, items) => index !== 0 && <SnakePixel key={index} pos={pos} dim={pixel - 2} index={index} items={items} />)}
                 </View>
-
                 :
                 <View style={[GlobalStyles.centeredContainer, { marginVertical: verticalScale(10) }]}>
                     <RegText str='Any time now..., you ready? we have a really fast plane' />

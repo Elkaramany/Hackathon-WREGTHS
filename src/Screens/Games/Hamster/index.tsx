@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { verticalScale } from 'react-native-size-matters';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { Hamster1, Hamster2, Hamster3 } from '@Config';
+
 import { Button, Container, HeaderArrow, RegText } from '@Components'
 import Score from './Score'
 import Board from './Board'
-
-import { Hamster1, Hamster2, Hamster3 } from '@Config';
-import { verticalScale } from 'react-native-size-matters';
-
-interface Props {
-
-}
+import { Credential } from '@Actions';
 
 const columns = 3, rows = 8;
 
-const Hamster: React.FC<Props> = ({ }) => {
+const Hamster: React.FC<{}> = ({ }) => {
     const navigation = useNavigation()
-
+    const dispatch = useDispatch()
+    const { hamsterHighscore } = useSelector((state: any) => state.AuthReducer)
     const [score, setScore] = useState(0);
-    const [time, setTime] = useState(5000);
+    const [time, setTime] = useState(1000);
     const [showHamster, setShowHamster] = useState<{ x: number, y: number, time: number, hamster: any }[]>([]);
     const onHamsterHit = (item: number) => {
         setScore(score => score + item);
@@ -44,7 +44,13 @@ const Hamster: React.FC<Props> = ({ }) => {
     }, [])
 
     useEffect(() => {
-        if (time == -1) return
+        if (time == -1) {
+            if (score > hamsterHighscore) {
+                Alert.alert("New highscore for you")
+                Credential(dispatch, { prop: "hamsterHighscore", value: score })
+            }
+            return;
+        }
         let timer = setInterval(() => {
             let x = Math.floor(Math.random() * columns + 1)
             let y = Math.floor(Math.random() * rows + 1)
@@ -77,7 +83,6 @@ const Hamster: React.FC<Props> = ({ }) => {
                         <>
                             <RegText customTextStyle={styles.gameOver} biggest str={'Game Over!'} />
                             <RegText customTextStyle={styles.message} str={`You hit ${score} hamsters!`} />
-                            <RegText customTextStyle={styles.message} str={`You finnished number 1!`} />
                             <Button containerStyle={styles.button} onPress={() => { navigation.goBack() }} text="Yay!" />
                         </>
                         :

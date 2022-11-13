@@ -1,12 +1,15 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Container, HeaderArrow } from '@Components';
+import { Credential } from '@Actions';
 import { Emojis } from '@Config';
 
 import ShootingGameView, {
     GameInitDef as ShootingGameInitDef,
 } from './ShootingGameView';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props { }
 
@@ -47,10 +50,22 @@ function dummy_response(): DataDef & ShootingGameInitDef {
 }
 
 const Shooter: React.FC<Props> = ({ }) => {
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const { shooterHighscore } = useSelector((state: any) => state.AuthReducer)
     const response: DataDef & ShootingGameInitDef = dummy_response();
     const getTarget = (index: number) => textTarget(response.data, index);
-    const onFinish = (solved: boolean) => {
-        console.log('Game finished, solved: ', solved);
+    const onFinish = (solved: boolean, time: number) => {
+        if (time > shooterHighscore) Credential(dispatch, { prop: "shooterHighscore", value: time })
+        let titleMsg = solved ? "You won" : "Game Over"
+        let msg = solved ? `You had an extra ${(time / 1000).toFixed(1)} seconds left` : "Don't worry, Toptal is here for you"
+        Alert.alert(
+            titleMsg,
+            msg,
+            [
+                { text: "Alright, I Love Toptal too!", onPress: () => navigation.goBack() }
+            ]
+        );
     };
 
     return (

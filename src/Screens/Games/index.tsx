@@ -4,7 +4,6 @@ import { scale, verticalScale } from 'react-native-size-matters'
 
 import { Container, Header, RegText } from '@Components'
 import { Colors, GlobalStyles } from '@Config'
-import { useDispatch } from 'react-redux'
 
 interface Props {
     navigation: any
@@ -35,7 +34,6 @@ interface GAME {
 }
 
 const Index: React.FC<Props> = ({ navigation }) => {
-    const dispatch = useDispatch()
 
     const renderItem = (game: GAME) => {
         return (
